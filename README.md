@@ -1,13 +1,17 @@
-def selection_sort_desc(arr):
-    n = len(arr)
-    for i in range(n):
-        max_idx = i
-        for j in range(i + 1, n):
-            if arr[j] > arr[max_idx]:  # Изменен знак
-                max_idx = j
-        arr[i], arr[max_idx] = arr[max_idx], arr[i]
-    return arr
+def give_change(amount):
+    coins = [50, 10, 5, 2, 1]
+    result = {}
+    
+    for coin in coins:
+        if amount >= coin:
+            count = amount // coin
+            amount %= coin
+            result[coin] = count
+            
+    return result
 
-grades = [4, 2, 5, 3, 5, 4, 3]
-print("По убыванию:", selection_sort_desc(grades))
-# Вывод: [5, 5, 4, 4, 3, 3, 2]
+# Пример работы программы для сдачи 87 рублей
+change = give_change(87)
+print("Выданная сдача:")
+for coin, count in change.items():
+    print(f"Монета {coin} руб.: {count} шт.")
