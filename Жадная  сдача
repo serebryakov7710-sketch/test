@@ -1,0 +1,19 @@
+def give_change(amount):
+    coins = [50, 10, 5, 2, 1]
+    change_result = {}
+    
+    for coin in coins:
+        if amount >= coin:
+            count = amount // coin  # Сколько монет данного номинала помещается
+            amount %= coin         # Оставшаяся сумма
+            change_result[coin] = count
+            
+    return change_result
+
+# Пример работы программы для сдачи в 87 у.е.
+total_amount = 87
+result = give_change(total_amount)
+
+print(f"Сдача для суммы {total_amount}:")
+for coin, count in result.items():
+    print(f"Монета {coin}: {count}
