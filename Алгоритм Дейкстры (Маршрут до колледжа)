@@ -1,0 +1,45 @@
+# Взвешенный граф маршрута: Дом -> промежуточные точки -> Колледж
+graph = {
+    "Дом": {"A": 5, "B": 2},
+    "A": {"C": 4, "Колледж": 2},
+    "B": {"A": 8, "C": 7},
+    "C": {"Колледж": 1},
+    "Колледж": {}
+}
+
+def find_lowest_cost_node(costs, processed):
+    lowest_cost = float("inf")
+    lowest_cost_node = None
+    for node in costs:
+        cost = costs[node]
+        if cost < lowest_cost and node not in processed:
+            lowest_cost = cost
+            lowest_cost_node = node
+    return lowest_cost_node
+
+def dijkstra(graph, start, end):
+    costs = {node: float("inf") for node in graph}
+    for neighbor, weight in graph[start].items():
+        costs[neighbor] = weight
+    costs[start] = 0
+    
+    parents = {neighbor: start for neighbor in graph[start]}
+    processed = set()
+    
+    node = find_lowest_cost_node(costs, processed)
+    while node is not None:
+        cost = costs[node]
+        neighbors = graph[node]
+        for n in neighbors:
+            new_cost = cost + neighbors[n]
+            if costs[n] > new_cost:
+                costs[n] = new_cost
+                parents[n] = node
+        processed.add(node)
+        node = find_lowest_cost_node(costs, processed)
+        
+    return costs[end], parents
+
+# Поиск пути
+total_cost, path_parents = dijkstra(graph, "Дом", "Колледж")
+print(f"Самый быстрый путь занимает: {total_cost}")
