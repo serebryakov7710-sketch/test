@@ -1,0 +1,21 @@
+grades = [4, 5, 3, 5, 4, 2, 5]
+
+# Инициализируем переменные начальными значениями
+min_grade = grades[0]
+max_grade = grades[0]
+total_sum = 0
+
+# Однопроходный цикл для поиска всех значений без встроенных функций
+for grade in grades:
+    if grade < min_grade:
+        min_grade = grade
+    if grade > max_grade:
+        max_grade = grade
+    total_sum += grade
+
+# Считаем средний балл
+average_grade = total_sum / len(grades)
+
+print(f"Минимальная оценка: {min_grade}")
+print(f"Максимальная оценка: {max_grade}")
+print(f"Средний балл: {average_grade:.2f}")
