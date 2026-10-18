@@ -1,0 +1,34 @@
+# Граф из 7 вершин (связи между локациями)
+from collections import deque
+
+
+graph = {
+    "Старт": ["Таверна", "Магазин"],
+    "Таверна": ["Старт", "Лес", "Кузница"],
+    "Магазин": ["Старт", "Рынок"],
+    "Лес": ["Таверна", "Пещера"],
+    "Кузница": ["Таверна"],
+    "Рынок": ["Магазин"],
+    "Пещера": ["Лес"]
+}
+
+def bfs(graph, start, target):
+    search_queue = deque()
+    search_queue.append(start)
+    searched = set()
+    order_of_inspection = [] # Порядок проверки для ответа на задание
+    
+    while search_queue:
+        node = search_queue.popleft()
+        if node not in searched:
+            order_of_inspection.append(node)
+            if node == target:
+                return order_of_inspection
+            search_queue.extend(graph[node])
+            searched.add(node)
+    return order_of_inspection
+
+# Запуск алгоритма
+order = bfs(graph, "Старт", "Пещера")
+print("Порядок проверки вершин вручную для тетради:")
+print(" -> ".join(order))
